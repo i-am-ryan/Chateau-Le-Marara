@@ -11,7 +11,7 @@ const PANELS = [
       en: "The chef strives to delight with delicious dishes highlighting local Rwandan produce, accompanied by fine French wines.",
       fr: "Le chef s'attache à ravir les papilles avec des plats délicieux mettant en valeur les produits locaux rwandais.",
     },
-    href: "/contact" as const,
+    href: "/dining" as const,
   },
   {
     img: "/hf_20260626_092719_8ba5b57f-580e-4fe3-b5fa-1c6b5218677f.png",
@@ -29,7 +29,7 @@ const PANELS = [
       en: "Host unforgettable celebrations for up to 60 guests in our exquisite venues with breathtaking views over Lake Kivu.",
       fr: "Organisez des célébrations inoubliables pour jusqu'à 60 personnes avec une vue imprenable sur le lac Kivu.",
     },
-    href: "/contact" as const,
+    href: "/events" as const,
   },
   {
     img: "https://images.unsplash.com/photo-1568084680786-a84f91d1153c?w=1400&q=85",
@@ -38,7 +38,7 @@ const PANELS = [
       en: "A masterpiece of architecture inspired by French classicism, perched on the hills above Lake Kivu where Africa meets elegance.",
       fr: "Un chef-d'œuvre architectural inspiré du classicisme français, perché sur les collines au-dessus du lac Kivu.",
     },
-    href: "/" as const,
+    href: "/our-story" as const,
   },
 ];
 

@@ -14,6 +14,8 @@ import { Route as OurStoryRouteImport } from './routes/our-story'
 import { Route as LakeKivuRouteImport } from './routes/lake-kivu'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as ExperienceRouteImport } from './routes/experience'
+import { Route as EventsRouteImport } from './routes/events'
+import { Route as DiningRouteImport } from './routes/dining'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -42,6 +44,16 @@ const ExperienceRoute = ExperienceRouteImport.update({
   path: '/experience',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EventsRoute = EventsRouteImport.update({
+  id: '/events',
+  path: '/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DiningRoute = DiningRouteImport.update({
+  id: '/dining',
+  path: '/dining',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
@@ -56,6 +68,8 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/contact': typeof ContactRoute
+  '/dining': typeof DiningRoute
+  '/events': typeof EventsRoute
   '/experience': typeof ExperienceRoute
   '/gallery': typeof GalleryRoute
   '/lake-kivu': typeof LakeKivuRoute
@@ -65,6 +79,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/contact': typeof ContactRoute
+  '/dining': typeof DiningRoute
+  '/events': typeof EventsRoute
   '/experience': typeof ExperienceRoute
   '/gallery': typeof GalleryRoute
   '/lake-kivu': typeof LakeKivuRoute
@@ -75,6 +91,8 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/contact': typeof ContactRoute
+  '/dining': typeof DiningRoute
+  '/events': typeof EventsRoute
   '/experience': typeof ExperienceRoute
   '/gallery': typeof GalleryRoute
   '/lake-kivu': typeof LakeKivuRoute
@@ -86,6 +104,8 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/contact'
+    | '/dining'
+    | '/events'
     | '/experience'
     | '/gallery'
     | '/lake-kivu'
@@ -95,6 +115,8 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/contact'
+    | '/dining'
+    | '/events'
     | '/experience'
     | '/gallery'
     | '/lake-kivu'
@@ -104,6 +126,8 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/contact'
+    | '/dining'
+    | '/events'
     | '/experience'
     | '/gallery'
     | '/lake-kivu'
@@ -114,6 +138,8 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ContactRoute: typeof ContactRoute
+  DiningRoute: typeof DiningRoute
+  EventsRoute: typeof EventsRoute
   ExperienceRoute: typeof ExperienceRoute
   GalleryRoute: typeof GalleryRoute
   LakeKivuRoute: typeof LakeKivuRoute
@@ -158,6 +184,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExperienceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/events': {
+      id: '/events'
+      path: '/events'
+      fullPath: '/events'
+      preLoaderRoute: typeof EventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dining': {
+      id: '/dining'
+      path: '/dining'
+      fullPath: '/dining'
+      preLoaderRoute: typeof DiningRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
@@ -178,6 +218,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ContactRoute: ContactRoute,
+  DiningRoute: DiningRoute,
+  EventsRoute: EventsRoute,
   ExperienceRoute: ExperienceRoute,
   GalleryRoute: GalleryRoute,
   LakeKivuRoute: LakeKivuRoute,
