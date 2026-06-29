@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ChateauIntro } from "@/components/chateau-intro";
 import { RoomsTeaser } from "@/components/rooms-teaser";
 import { SplitPanels } from "@/components/split-panels";
@@ -14,19 +14,39 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   const [mode, setMode] = useState<"day" | "night">("day");
+  const dayRef  = useRef<HTMLVideoElement>(null);
+  const nightRef = useRef<HTMLVideoElement>(null);
+
+  // React doesn't reliably pass `muted` to the DOM — set it directly
+  useEffect(() => {
+    [dayRef, nightRef].forEach(ref => {
+      if (!ref.current) return;
+      ref.current.muted = true;
+      ref.current.playsInline = true;
+      ref.current.play().catch(() => {});
+    });
+  }, []);
 
   return (
     <main>
       {/* Hero */}
       <div style={{ position: "sticky", top: 0, zIndex: 1, width: "100vw", height: "100dvh" }}>
-        <video autoPlay muted loop playsInline
-          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: mode === "day" ? 1 : 0, transition: "opacity 1.4s ease" }}>
+        <video
+          ref={dayRef}
+          autoPlay muted loop playsInline
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: mode === "day" ? 1 : 0, transition: "opacity 1.4s ease" }}
+        >
           <source src={VIDEO_DAY} type="video/mp4" />
         </video>
-        <video autoPlay muted loop playsInline
-          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: mode === "night" ? 1 : 0, transition: "opacity 1.4s ease" }}>
+
+        <video
+          ref={nightRef}
+          autoPlay muted loop playsInline
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: mode === "night" ? 1 : 0, transition: "opacity 1.4s ease" }}
+        >
           <source src={VIDEO_NIGHT} type="video/mp4" />
         </video>
+
         <div style={{ position: "absolute", inset: 0, pointerEvents: "none", background: "linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.55) 100%)" }} />
 
         <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 10, pointerEvents: "none" }}>
