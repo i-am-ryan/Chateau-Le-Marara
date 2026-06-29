@@ -14,18 +14,39 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   const [mode, setMode] = useState<"day" | "night">("day");
-  const dayRef  = useRef<HTMLVideoElement>(null);
+  const dayRef   = useRef<HTMLVideoElement>(null);
   const nightRef = useRef<HTMLVideoElement>(null);
 
-  // React doesn't reliably pass `muted` to the DOM — set it directly
+  // iOS Safari requires muted set directly on the DOM node
   useEffect(() => {
-    [dayRef, nightRef].forEach(ref => {
-      if (!ref.current) return;
-      ref.current.muted = true;
-      ref.current.playsInline = true;
-      ref.current.play().catch(() => {});
-    });
+    const day   = dayRef.current;
+    const night = nightRef.current;
+    if (!day || !night) return;
+
+    day.muted   = true;
+    night.muted = true;
+    day.playsInline   = true;
+    night.playsInline = true;
+
+    // Only autoplay the active video — iOS blocks simultaneous video playback
+    day.play().catch(() => {});
+    night.pause();
   }, []);
+
+  // Switch which video plays when mode changes
+  useEffect(() => {
+    const day   = dayRef.current;
+    const night = nightRef.current;
+    if (!day || !night) return;
+
+    if (mode === "day") {
+      night.pause();
+      day.play().catch(() => {});
+    } else {
+      day.pause();
+      night.play().catch(() => {});
+    }
+  }, [mode]);
 
   return (
     <main>
@@ -33,7 +54,7 @@ function Home() {
       <div style={{ position: "sticky", top: 0, zIndex: 1, width: "100vw", height: "100dvh" }}>
         <video
           ref={dayRef}
-          autoPlay muted loop playsInline
+          autoPlay muted loop playsInline preload="auto"
           style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: mode === "day" ? 1 : 0, transition: "opacity 1.4s ease" }}
         >
           <source src={VIDEO_DAY} type="video/mp4" />
@@ -41,7 +62,7 @@ function Home() {
 
         <video
           ref={nightRef}
-          autoPlay muted loop playsInline
+          autoPlay muted loop playsInline preload="metadata"
           style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: mode === "night" ? 1 : 0, transition: "opacity 1.4s ease" }}
         >
           <source src={VIDEO_NIGHT} type="video/mp4" />
