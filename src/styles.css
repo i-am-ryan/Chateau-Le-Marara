@@ -1,0 +1,115 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-navy: var(--navy);
+  --color-deep: var(--deep);
+  --color-ocean: var(--ocean);
+  --color-cream: var(--cream);
+  --color-gold: var(--gold);
+  --color-ink: var(--ink);
+
+  /* Exact Wellington font stack — swapped to Château palette */
+  --font-script:  "Pinyon Script", serif;          /* script labels like "Wellington Hotel & Spa" */
+  --font-display: "Cormorant Garamond", serif;     /* headings */
+  --font-sans:    "Jost", sans-serif;              /* body / UI text */
+  --font-label:   "Jost", sans-serif;              /* eyebrows / nav */
+}
+
+:root {
+  --radius: 0rem;
+  --background: #EDECEA;         /* Château warm cream — close to Wellington #EDECEA */
+  --foreground: #2C2C2C;
+  --card: #EDECEA;
+  --card-foreground: #2C2C2C;
+  --popover: #EDECEA;
+  --popover-foreground: #2C2C2C;
+  --primary: #2C2C2C;
+  --primary-foreground: #EDECEA;
+  --secondary: #E5E2DE;
+  --secondary-foreground: #2C2C2C;
+  --muted: #E5E2DE;
+  --muted-foreground: #786947;
+  --accent: #C9A961;
+  --accent-foreground: #2C2C2C;
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: #ffffff;
+  --border: rgba(44, 44, 44, 0.1);
+  --input: rgba(44, 44, 44, 0.1);
+  --ring: #C9A961;
+
+  /* Named tokens */
+  --navy:  #2C2C2C;      /* Wellington uses #0D2F44 — we use near-black */
+  --deep:  #4A3F35;
+  --ocean: #786947;      /* Château warm brown-gold — replaces Wellington's teal */
+  --cream: #EDECEA;
+  --gold:  #C9A961;
+  --ink:   #2C2C2C;
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html, body {
+    background-color: var(--cream);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    letter-spacing: -0.01em;
+  }
+}
+
+/* Gold scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #E5E2DE; }
+::-webkit-scrollbar-thumb { background: #C9A961; }
+
+@utility label-eyebrow {
+  font-family: var(--font-label);
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: 11px;
+  color: var(--gold);
+}
+
+@utility nav-link {
+  font-family: var(--font-label);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 12px;
+}
+
+@keyframes scrollArrow {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(8px); opacity: 1; }
+}
+@utility scroll-arrow {
+  animation: scrollArrow 1.8s ease-in-out infinite;
+}
